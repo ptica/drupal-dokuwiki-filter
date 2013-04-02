@@ -7,6 +7,10 @@ phpcli=/Users/ptacek/src/dokuwiki-2012-10-13/bin/dokucli.php
 #if parameters are not empty, assume files have been passed
 if [ $# -gt 0 ]
 then
+	if [[ "$1" = "-V" ]]
+    	then
+        	echo "doku2html version 0.1"
+    	fi
 	for file in "$@"
 	do
 		#ignore any non-files that are passed as parameters
