@@ -1,0 +1,5 @@
+name = Dokuwiki Filter
+description = Dokuwiki -> Html
+package = "Filters"
+dependencies[] = filter
+core = 7.x
