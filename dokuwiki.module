@@ -110,10 +110,11 @@ function dokuwiki_file_download($file) {
 /**
  * Implementation of hook_node_delete().
  */
-function dokuwiki_node_delete(&$node) {
+function dokuwiki_node_delete($node) {
 	// delete the Dokuwiki rendering if any
 	$matches = array();
-	if (preg_match_all(DOKUWIKI_REGEX, $node->body, $matches)) {
+	($body = @$node->body) || ($body = '');
+	if (preg_match_all(DOKUWIKI_REGEX, $body, $matches)) {
 		$dir = file_default_scheme() . ':/' .'/dokuwiki';
 		foreach ($matches[1] as $match) {
 			$match = str_replace(array("\r\n", "\r"), "\n", $match); // do like filter.module
