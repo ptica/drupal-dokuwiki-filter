@@ -90,7 +90,11 @@ function _dokuwiki_filter_tips($filter, $format, $long = false) {
 	foreach ($formats as $format => $info) {
 		$items[] = $format .': '. $info['description'];
 	}
-	$output .= theme_item_list($items);
+	// TODO
+	// BEWARE following generates warning:
+	// Undefined index: items in theme_item_list()
+	// etc
+	//$output .= theme_item_list($items);
 	return $output;
 }
 
@@ -113,7 +117,8 @@ function dokuwiki_file_download($file) {
 function dokuwiki_node_delete($node) {
 	// delete the Dokuwiki rendering if any
 	$matches = array();
-	($body = @$node->body) || ($body = '');
+	$body = !empty($node->body) ? $node->body : '';
+	if (is_array($body) && $body['und'][0]['format'] == 'filtered_html') $body = '';
 	if (preg_match_all(DOKUWIKI_REGEX, $body, $matches)) {
 		$dir = file_default_scheme() . ':/' .'/dokuwiki';
 		foreach ($matches[1] as $match) {
